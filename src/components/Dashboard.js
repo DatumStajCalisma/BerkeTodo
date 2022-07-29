@@ -8,7 +8,7 @@ import TodoOngoing from "../pages/TodoOngoing";
 export default function Dashboard() {
   return (
     <Routes>
-      <Route path="/" element={<App />} />
+      <Route path="*" element={<App />} />
       <Route path="viewAll" element={<TodoViewAll />} />
       <Route path="completed" element={<TodoCompleted />} />
       <Route path="ongoing" element={<TodoOngoing />} />
