@@ -10,10 +10,10 @@ import todo.api.core.utilities.results.DataResult;
 import todo.api.core.utilities.results.Result;
 import todo.api.core.utilities.results.SuccessDataResult;
 import todo.api.core.utilities.results.SuccessResult;
-import todo.api.entities.abstracts.ToDoDao;
+import todo.api.dataAccess.abstracts.ToDoDao;
 import todo.api.entities.concretes.ToDo;
 
-@Service
+@Service("toDoService")
 public class ToDoManager implements ToDoService{
 		
 	private ToDoDao toDoDao;
@@ -31,9 +31,12 @@ public class ToDoManager implements ToDoService{
 	}
 
 	@Override
-	public Result add(ToDo todo) {
-		this.toDoDao.save(todo);
+	public Result add(ToDo toDo) {
+		this.toDoDao.save(toDo);
 		return new SuccessResult("ToDo added successfully");
 
 	}
+	
+
+
 }

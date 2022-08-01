@@ -11,5 +11,6 @@ public interface ToDoService {
 
 	DataResult<List<ToDo>> getAll();
 	
-	Result add(ToDo todo);
+	Result add(ToDo toDo);
+
 }
