@@ -5,7 +5,7 @@ export default function TButton(props) {
   const { onClick } = props;
 
   return (
-    <Button variant={props.variant} onClick={onClick} id="button-addon2">
+    <Button id={props.pId} variant={props.variant} onClick={onClick}>
       {props.name}
     </Button>
   );

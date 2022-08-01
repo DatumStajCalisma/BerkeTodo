@@ -5,6 +5,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import TodoItemInput from "../components/TodoItemInput";
 import ToDoService from "../service/toDoService";
+
 export default function TodoViewAll() {
   const [toDos, setToDos] = useState([]);
 
@@ -13,24 +14,38 @@ export default function TodoViewAll() {
     toDoService.getToDos().then((result) => setToDos(result.data.data));
   }, []);
 
+  const [inputValue, setInputValue] = useState("");
+
+  const handleChange = (event) => {
+    setInputValue(event.target.value);
+    console.log("value is:", event.target.value);
+  };
   // const [isDone, setIsDone] = useState(true);
 
   const [isEdited, setIsEdited] = useState(false);
 
-  function handleIsEditing() {
+  function handleIsEditing(event) {
     setIsEdited(true);
     console.log("Editing");
+    console.log(event.currentTarget.id);
   }
-  function handleIsEdited() {
+
+  function handleIsEdited(event) {
     setIsEdited(false);
     console.log("Edited");
+    console.log(event.currentTarget.id);
   }
-  function handleIsDone() {
+
+  function handleIsDone(event) {
     console.log("ToDo Completed");
+    console.log(event.currentTarget.id);
   }
-  function handleDelete() {
+
+  function handleDelete(event) {
     console.log("ToDo Deleted");
+    console.log(event.currentTarget.id);
   }
+
   return (
     <>
       {toDos.map((toDos) => (
@@ -44,24 +59,45 @@ export default function TodoViewAll() {
             </Col>
             <Col md={1} style={{ margin: "auto" }}>
               <TButton
+                pId={toDos.id}
                 onClick={handleIsEditing}
                 name="edit"
                 variant="primary"
               />
             </Col>
             <Col md={1} style={{ margin: "auto" }}>
-              <TButton onClick={handleIsDone} name="done" variant="success" />
+              <TButton
+                pId={toDos.id}
+                onClick={handleIsDone}
+                name="done"
+                variant="success"
+              />
             </Col>
-            <Col md={1} style={{ margin: "auto" }}>
-              <TButton onClick={handleDelete} name="delete" variant="danger" />
+            <Col id={toDos.id} md={1} style={{ margin: "auto" }}>
+              <TButton
+                pId={toDos.id}
+                onClick={handleDelete}
+                name="delete"
+                variant="danger"
+              />
             </Col>
           </Row>
           <Row style={isEdited ? { marginBottom: "5px" } : { display: "none" }}>
             <Col md={11}>
-              <TodoItemInput placeHolder="Add a new ToDo" />
+              <TodoItemInput
+                id={toDos.id}
+                placeHolder="Add a new ToDo"
+                valueInput={inputValue}
+                onChange={handleChange}
+              />
             </Col>
             <Col md={1}>
-              <TButton onClick={handleIsEdited} name="done" variant="success" />
+              <TButton
+                pId={toDos.id}
+                onClick={handleIsEdited}
+                name="done"
+                variant="success"
+              />
             </Col>
           </Row>
         </div>

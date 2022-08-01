@@ -8,7 +8,8 @@ export default function TodoItemInput(props) {
         <Form.Control
           placeholder={props.placeHolder}
           aria-label="toDos"
-          aria-describedby="basic-addon2"
+          onChange={props.onChange}
+          value={props.valueInput}
         />
       </InputGroup>
     </>
