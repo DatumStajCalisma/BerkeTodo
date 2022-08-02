@@ -44,6 +44,12 @@ public class ToDoManager implements ToDoService{
 
 	}
 
+	@Override
+	public SuccessDataResult<Object> updateTodo(int id, String todoText) {
+		this.toDoDao.updateTodo(id,todoText);
+		return new SuccessDataResult<Object>(this.toDoDao.findById(id),"ToDo updated successfully");
+	}
+
 	
 
 

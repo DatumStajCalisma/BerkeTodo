@@ -24,8 +24,6 @@ public class ToDo {
 	@Column(name="todo_id")
 	private int id; 
 	
-	
-
 	@Column(name="todo_text")
 	private String todoText;
 	
