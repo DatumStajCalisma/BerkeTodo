@@ -17,5 +17,6 @@ public interface ToDoService {
 	
 	Result updateTodo(int id, String todoText);
 
-	
+	Result updateTodoStatus(int id, boolean todoStatus);
+
 }

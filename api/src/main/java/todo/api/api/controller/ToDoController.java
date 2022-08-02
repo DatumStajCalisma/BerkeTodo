@@ -46,10 +46,13 @@ public class ToDoController {
 		return this.toDoService.deleteTodo(id);
 	}
 	
-	 @PatchMapping("/update/{id}/{todoText}")
-	 public Result updateTodo(@PathVariable(value = "id") int id,@PathVariable(value="todoText") String todoText){
+	@PatchMapping("/updateText/{id}/{todoText}")
+	public Result updateTodo(@PathVariable(value = "id") int id,@PathVariable(value="todoText") String todoText){
 		return  this.toDoService.updateTodo(id,todoText);
-
 	}
 	
+	@PatchMapping("/updateStatus/{id}/{todoStatus}")
+	public Result updateTodoStatus(@PathVariable(value = "id") int id,@PathVariable(value="todoStatus") boolean todoStatus){
+		return  this.toDoService.updateTodoStatus(id,todoStatus);
+	}
 }

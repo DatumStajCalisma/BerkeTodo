@@ -50,7 +50,12 @@ public class ToDoManager implements ToDoService{
 		return new SuccessDataResult<Object>(this.toDoDao.findById(id),"ToDo updated successfully");
 	}
 
-	
+	@Override
+	public Result updateTodoStatus(int id, boolean todoStatus) {
+		this.toDoDao.updateTodoStatus(id,todoStatus);
+		return new SuccessDataResult<Object>(this.toDoDao.findById(id),"ToDo updated successfully");
+	}
+
 
 
 }

@@ -19,5 +19,8 @@ public interface ToDoDao extends JpaRepository<ToDo,Integer>{
 	@Query(value="UPDATE Todos SET todo_text=:todoText WHERE todo_id=:id",nativeQuery = true)
 	int updateTodo(@Param("id") int id,@Param("todoText") String todoText);
 	
+	@Modifying
+	@Query(value="UPDATE Todos SET todo_status=:todoStatus WHERE todo_id=:id",nativeQuery = true)
+	int updateTodoStatus(@Param("id") int id,@Param("todoStatus") boolean todoStatus);
 }
 	
