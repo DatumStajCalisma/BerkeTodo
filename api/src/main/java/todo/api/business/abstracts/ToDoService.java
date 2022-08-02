@@ -13,4 +13,7 @@ public interface ToDoService {
 	
 	Result add(ToDo toDo);
 
+
+	Result deleteTodo(int id);
+
 }

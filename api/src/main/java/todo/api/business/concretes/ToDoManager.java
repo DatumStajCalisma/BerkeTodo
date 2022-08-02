@@ -36,6 +36,14 @@ public class ToDoManager implements ToDoService{
 		return new SuccessResult("ToDo added successfully");
 
 	}
+
+	@Override
+	public Result deleteTodo(int id) {
+		this.toDoDao.deleteById(id);
+		return new SuccessResult("ToDo deleted successfully");
+
+	}
+
 	
 
 
