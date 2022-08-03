@@ -12,14 +12,18 @@ export default function TodoCompleted() {
     let toDoService = new ToDoService();
     toDoService.getToDos().then((result) => setToDos(result.data.data));
   }, []);
-  function handleDelete() {
-    console.log("ToDo Deleted");
+
+  function handleDelete(event) {
+    const deleteID = event.currentTarget.id;
+    fetch("http://localhost:8080/delete/" + deleteID, {
+      method: "DELETE",
+    }).then(() => console.log("deleted"));
   }
 
   return (
     <>
       {toDos
-        .filter((todo) => todo.todoStatus == false)
+        .filter((todo) => todo.todoStatus == true)
         .map((toDos) => (
           <div key={toDos.id}>
             <Row style={{ marginBottom: "5px" }}>
@@ -28,6 +32,7 @@ export default function TodoCompleted() {
               </Col>
               <Col style={{ margin: "auto" }} md={1}>
                 <TButton
+                  pId={toDos.id}
                   onClick={handleDelete}
                   name="delete"
                   variant="danger"

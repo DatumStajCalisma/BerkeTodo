@@ -47,7 +47,7 @@ export default function TodoOngoing() {
   return (
     <>
       {toDos
-        .filter((todo) => todo.todoStatus == true)
+        .filter((todo) => todo.todoStatus == false)
         .map((toDos) => (
           <div key={toDos.id}>
             <Row
