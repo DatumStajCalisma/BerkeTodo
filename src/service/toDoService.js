@@ -5,7 +5,7 @@ export default class ProductService {
     return axios.get("http://localhost:8080/viewAll");
   }
 
-  addToDo() {
-    return axios.post("http://localhost:8080/add");
+  addToDo(todoData) {
+    return axios.post("http://localhost:8080/add", todoData);
   }
 }
