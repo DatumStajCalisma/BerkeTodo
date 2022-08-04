@@ -6,24 +6,28 @@ import TButton from "../components/TButton";
 import ToDoService from "../service/toDoService";
 
 export default function TodoCompleted() {
+  let toDoService = new ToDoService();
   const [toDos, setToDos] = useState([]);
 
   useEffect(() => {
-    let toDoService = new ToDoService();
     toDoService.getToDos().then((result) => setToDos(result.data.data));
   }, []);
 
   function handleDelete(event) {
     const deleteID = event.currentTarget.id;
-    fetch("http://localhost:8080/delete/" + deleteID, {
-      method: "DELETE",
-    }).then(() => console.log("deleted"));
+
+    const filtered = toDos.filter((obj) => {
+      // console.log(deleteID + "deleted");
+      return obj.id != deleteID;
+    });
+    // console.log(filtered);
+    toDoService.deleteToDo(deleteID).then(() => setToDos(filtered));
   }
 
   return (
     <>
       {toDos
-        .filter((todo) => todo.todoStatus == true)
+        .filter((todo) => todo.todoStatus === true)
         .map((toDos) => (
           <div key={toDos.id}>
             <Row style={{ marginBottom: "5px" }}>
