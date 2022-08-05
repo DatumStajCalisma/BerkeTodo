@@ -22,14 +22,13 @@ export default function TodoViewAll() {
   };
   // const [isDone, setIsDone] = useState(true);
 
-  const [isEdited, setIsEdited] = useState(false);
+  const [isEditedID, setIsEditedID] = useState("");
 
   function handleIsEditing(event) {
-    setIsEdited(true);
+    setIsEditedID(event.currentTarget.id);
   }
 
   function handleIsEdited(event) {
-    setIsEdited(false);
     const updateID = event.currentTarget.id;
     const todoText = inputValue;
     const filtered = toDos.filter((obj) => {
@@ -44,6 +43,7 @@ export default function TodoViewAll() {
     toDoService
       .updateToDoText(updateID, todoText)
       .then(() => setToDos(filtered));
+    setIsEditedID("");
   }
 
   function handleIsDone(event) {
@@ -76,7 +76,7 @@ export default function TodoViewAll() {
     <>
       {toDos.map((toDos) => (
         <div key={toDos.id}>
-          <Row style={isEdited ? { display: "none" } : { marginBottom: "5px" }}>
+          <Row id={toDos.id} style={{ marginBottom: "10px" }}>
             <Col md={8}>
               <TodoItem toDoText={toDos.todoText} />
             </Col>
@@ -108,24 +108,28 @@ export default function TodoViewAll() {
               />
             </Col>
           </Row>
-          <Row style={isEdited ? { marginBottom: "5px" } : { display: "none" }}>
-            <Col md={11}>
-              <TodoItemInput
-                id={toDos.id}
-                placeHolder="Add a new ToDo"
-                valueInput={inputValue}
-                onChange={handleChange}
-              />
-            </Col>
-            <Col md={1}>
-              <TButton
-                pId={toDos.id}
-                onClick={handleIsEdited}
-                name="done"
-                variant="success"
-              />
-            </Col>
-          </Row>
+          {isEditedID == toDos.id ? (
+            <Row>
+              <Col md={11}>
+                <TodoItemInput
+                  id={toDos.id}
+                  placeHolder="Update ToDo"
+                  valueInput={inputValue}
+                  onChange={handleChange}
+                />
+              </Col>
+              <Col md={1}>
+                <TButton
+                  pId={toDos.id}
+                  onClick={handleIsEdited}
+                  name="done"
+                  variant="success"
+                />
+              </Col>
+            </Row>
+          ) : (
+            <></>
+          )}
         </div>
       ))}
     </>

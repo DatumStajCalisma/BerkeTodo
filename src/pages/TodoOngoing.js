@@ -22,16 +22,13 @@ export default function TodoOngoing() {
     console.log("value is:", event.target.value);
   };
 
-  const [isEdited, setIsEdited] = useState(false);
+  const [isEditedID, setIsEditedID] = useState("");
 
   function handleIsEditing(event) {
-    setIsEdited(true);
-    console.log("Editing");
-    console.log(event.currentTarget.id);
+    setIsEditedID(event.currentTarget.id);
   }
 
   function handleIsEdited(event) {
-    setIsEdited(false);
     const updateID = event.currentTarget.id;
     const todoText = inputValue;
     const filtered = toDos.filter((obj) => {
@@ -46,6 +43,8 @@ export default function TodoOngoing() {
     toDoService
       .updateToDoText(updateID, todoText)
       .then(() => setToDos(filtered));
+
+    setIsEditedID("");
   }
 
   function handleIsDone(event) {
@@ -81,9 +80,7 @@ export default function TodoOngoing() {
         .filter((todo) => todo.todoStatus == false)
         .map((toDos) => (
           <div key={toDos.id}>
-            <Row
-              style={isEdited ? { display: "none" } : { marginBottom: "5px" }}
-            >
+            <Row style={{ margin: "10px" }}>
               <Col md={9}>
                 <TodoItem toDoText={toDos.todoText} />
               </Col>
@@ -112,26 +109,28 @@ export default function TodoOngoing() {
                 />
               </Col>
             </Row>
-            <Row
-              style={isEdited ? { marginBottom: "5px" } : { display: "none" }}
-            >
-              <Col md={11}>
-                <TodoItemInput
-                  id={toDos.id}
-                  placeHolder="Add a new ToDo"
-                  valueInput={inputValue}
-                  onChange={handleChange}
-                />
-              </Col>
-              <Col md={1}>
-                <TButton
-                  pId={toDos.id}
-                  onClick={handleIsEdited}
-                  name="done"
-                  variant="success"
-                />
-              </Col>
-            </Row>
+            {isEditedID == toDos.id ? (
+              <Row style={{ margin: "10px" }}>
+                <Col md={11}>
+                  <TodoItemInput
+                    id={toDos.id}
+                    placeHolder="Update ToDo"
+                    valueInput={inputValue}
+                    onChange={handleChange}
+                  />
+                </Col>
+                <Col md={1}>
+                  <TButton
+                    pId={toDos.id}
+                    onClick={handleIsEdited}
+                    name="done"
+                    variant="success"
+                  />
+                </Col>
+              </Row>
+            ) : (
+              <></>
+            )}
           </div>
         ))}
     </>
