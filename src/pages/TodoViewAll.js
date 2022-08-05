@@ -7,6 +7,7 @@ import TodoItemInput from "../components/TodoItemInput";
 import ToDoService from "../service/toDoService";
 
 export default function TodoViewAll() {
+  let toDoService = new ToDoService();
   const [toDos, setToDos] = useState([]);
 
   useEffect(() => {
@@ -18,7 +19,6 @@ export default function TodoViewAll() {
 
   const handleChange = (event) => {
     setInputValue(event.target.value);
-    console.log("value is:", event.target.value);
   };
   // const [isDone, setIsDone] = useState(true);
 
@@ -26,26 +26,52 @@ export default function TodoViewAll() {
 
   function handleIsEditing(event) {
     setIsEdited(true);
-    console.log("Editing");
-    console.log(event.currentTarget.id);
   }
 
   function handleIsEdited(event) {
     setIsEdited(false);
-    console.log("Edited");
-    console.log(event.currentTarget.id);
+    const updateID = event.currentTarget.id;
+    const todoText = inputValue;
+    const filtered = toDos.filter((obj) => {
+      // console.log(obj.id);
+      if (obj.id == updateID) {
+        return (obj.todoText = todoText);
+      } else {
+        return obj;
+      }
+    });
+    // console.log(filtered);
+    toDoService
+      .updateToDoText(updateID, todoText)
+      .then(() => setToDos(filtered));
   }
 
   function handleIsDone(event) {
-    console.log("ToDo Completed");
-    console.log(event.currentTarget.id);
+    const updateID = event.currentTarget.id;
+    const todoStatus = true;
+    const filtered = toDos.filter((obj) => {
+      // console.log(obj.id);
+      if (obj.id == updateID) {
+        return (obj.todoStatus = true);
+      } else {
+        return obj;
+      }
+    });
+    // console.log(filtered);
+    toDoService
+      .updateToDoStatus(updateID, todoStatus)
+      .then(() => setToDos(filtered));
   }
 
   function handleDelete(event) {
-    console.log("ToDo Deleted");
-    console.log(event.currentTarget.id);
+    const deleteID = event.currentTarget.id;
+    const filtered = toDos.filter((obj) => {
+      // console.log(deleteID + "deleted");
+      return obj.id != deleteID;
+    });
+    // console.log(filtered);
+    toDoService.deleteToDo(deleteID).then(() => setToDos(filtered));
   }
-
   return (
     <>
       {toDos.map((toDos) => (

@@ -7,6 +7,7 @@ import TodoItemInput from "../components/TodoItemInput";
 import ToDoService from "../service/toDoService";
 
 export default function TodoOngoing() {
+  let toDoService = new ToDoService();
   const [toDos, setToDos] = useState([]);
 
   useEffect(() => {
@@ -31,18 +32,48 @@ export default function TodoOngoing() {
 
   function handleIsEdited(event) {
     setIsEdited(false);
-    console.log("Edited");
-    console.log(event.currentTarget.id);
+    const updateID = event.currentTarget.id;
+    const todoText = inputValue;
+    const filtered = toDos.filter((obj) => {
+      // console.log(obj.id);
+      if (obj.id == updateID) {
+        return (obj.todoText = todoText);
+      } else {
+        return obj;
+      }
+    });
+    // console.log(filtered);
+    toDoService
+      .updateToDoText(updateID, todoText)
+      .then(() => setToDos(filtered));
   }
 
   function handleIsDone(event) {
-    console.log("ToDo Completed");
-    console.log(event.currentTarget.id);
+    const updateID = event.currentTarget.id;
+    const todoStatus = true;
+    const filtered = toDos.filter((obj) => {
+      // console.log(obj.id);
+      if (obj.id == updateID) {
+        return (obj.todoStatus = false);
+      } else {
+        return obj;
+      }
+    });
+    // console.log(filtered);
+    toDoService
+      .updateToDoStatus(updateID, todoStatus)
+      .then(() => setToDos(filtered));
   }
 
   function handleDelete(event) {
-    console.log("ToDo Deleted");
-    console.log(event.currentTarget.id);
+    const deleteID = event.currentTarget.id;
+
+    const filtered = toDos.filter((obj) => {
+      // console.log(deleteID + "deleted");
+      return obj.id != deleteID;
+    });
+    // console.log(filtered);
+    toDoService.deleteToDo(deleteID).then(() => setToDos(filtered));
   }
   return (
     <>
@@ -65,7 +96,12 @@ export default function TodoOngoing() {
                 />
               </Col>
               <Col md={1} style={{ margin: "auto" }}>
-                <TButton onClick={handleIsDone} name="done" variant="success" />
+                <TButton
+                  pId={toDos.id}
+                  onClick={handleIsDone}
+                  name="done"
+                  variant="success"
+                />
               </Col>
               <Col md={1} style={{ margin: "auto" }}>
                 <TButton
