@@ -55,4 +55,7 @@ public class ToDoController {
 	public Result updateTodoStatus(@PathVariable(value = "id") int id,@PathVariable(value="todoStatus") boolean todoStatus){
 		return  this.toDoService.updateTodoStatus(id,todoStatus);
 	}
+	
+
+	
 }

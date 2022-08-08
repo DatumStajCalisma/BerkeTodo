@@ -56,6 +56,4 @@ public class ToDoManager implements ToDoService{
 		return new SuccessDataResult<Object>(this.toDoDao.findById(id),"ToDo updated successfully");
 	}
 
-
-
 }
