@@ -28,4 +28,12 @@ public class UserManager implements UserService {
 		return new SuccessDataResult<List<User>>(this.userDao.findAll(), "Data listed successfully");
 		
 	}
+
+		
+
+	@Override
+	public DataResult<User> findByuserEmail(String userEmail) {
+		return new SuccessDataResult<User>(this.userDao.findByuserEmail(userEmail), "Data listed successfully");
+	}
+	
 }

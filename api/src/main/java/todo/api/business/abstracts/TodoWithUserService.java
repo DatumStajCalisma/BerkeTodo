@@ -8,4 +8,5 @@ import todo.api.entities.concretes.TodoWithUser;
 public interface TodoWithUserService {
 
 	DataResult<List<TodoWithUser>> getAll();
+	
 }

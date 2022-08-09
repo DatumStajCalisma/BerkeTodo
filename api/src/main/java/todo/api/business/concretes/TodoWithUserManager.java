@@ -29,4 +29,5 @@ public class TodoWithUserManager implements TodoWithUserService {
 		return new SuccessDataResult<List<TodoWithUser>>(this.todoWithUserDao.findAll(), "Data listed successfully");
 		
 	}
+
 }

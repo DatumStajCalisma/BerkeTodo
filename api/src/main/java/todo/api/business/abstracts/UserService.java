@@ -8,5 +8,7 @@ import todo.api.core.utilities.results.DataResult;
 public interface UserService {
 
 	DataResult<List<User>> getAll();
-	
+
+	DataResult<User> findByuserEmail(String userEmail);
+
 }

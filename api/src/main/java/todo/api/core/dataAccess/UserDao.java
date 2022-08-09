@@ -10,4 +10,8 @@ import todo.api.core.entities.User;
 @Transactional
 public interface UserDao extends JpaRepository<User,Integer>{
 
+
+	User findByuserEmail(String userEmail);
+
+
 }
